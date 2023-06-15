@@ -1,6 +1,7 @@
 import "./Column.css"
 import { useStore } from "../../store";
 import { shallow } from "zustand/shallow";
+import { IoMdAddCircle } from "react-icons/io"
 
 function Column({ state, setNewTaskModalOpen }) {
 
@@ -25,7 +26,7 @@ function Column({ state, setNewTaskModalOpen }) {
         <p className="font-extrabold">{state}</p>
         {state === "Incomplete" && (
           <button onClick={() => setNewTaskModalOpen(true)} className="text-xl font-extrabold hover:text-green-500 px-2">
-            +
+            <IoMdAddCircle />
           </button>
         )}
       </div>
