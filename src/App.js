@@ -2,6 +2,7 @@ import Column from "./components/Column/Column";
 import NewTaskModal from "./components/NewTaskModal";
 import { useState } from "react";
 
+
 function App() {
   const [newTaskModalOpen, setNewTaskModalOpen] = useState(false);
 

@@ -1,7 +1,20 @@
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai"
+import { useRef } from "react";
+import { useStore } from "../store";
 
 function NewTaskModal({ newTaskModalOpen, setNewTaskModalOpen }) {
+    const newTaskRef = useRef();
+    const addTask = useStore((store) => store.addTask);
+
+    function handleAddTask() {
+        const newTask = newTaskRef.current.value;
+        if(!newTask) return;
+        addTask(newTask, "Incomplete");
+        newTaskRef.current.value = '';
+        setNewTaskModalOpen(false)
+    }
+
   return (
     <>
       {newTaskModalOpen ? (
@@ -9,7 +22,7 @@ function NewTaskModal({ newTaskModalOpen, setNewTaskModalOpen }) {
           <div className="justify-center mt-52 flex overflow-x-hidden fixed z-50">
             <div className="w-auto my-6 mx-auto max-w-xl">
               {/*content*/}
-              <div className="rounded-lg flex flex-col w-full bg-zinc-900">
+              <div className="rounded-lg flex flex-col w-full bg-slate-950 border-2 border-gray-500">
                 {/*header*/}
                 <div className="flex items-center justify-between p-5 rounded-t border-b border-gray-200 text-gray-200">
                   <h3 className="text-xl font-semibold">Add New Task</h3>
@@ -23,7 +36,7 @@ function NewTaskModal({ newTaskModalOpen, setNewTaskModalOpen }) {
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                  
-                    <input type="text" className="w-96 px-2 text-xl rounded-sm focus:outline-none" />
+                    <input type="text" ref={newTaskRef} className="w-96 px-2 text-xl rounded-sm focus:outline-none" />
 
                 </div>
                 {/*footer*/}
@@ -38,7 +51,7 @@ function NewTaskModal({ newTaskModalOpen, setNewTaskModalOpen }) {
                   <button
                     className="bg-emerald-500 hover:bg-emerald-600 text-white active:bg-emerald-600 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setNewTaskModalOpen(false)}
+                    onClick={handleAddTask}
                   >
                     Add Task
                   </button>
@@ -46,7 +59,7 @@ function NewTaskModal({ newTaskModalOpen, setNewTaskModalOpen }) {
               </div>
             </div>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
     </>
