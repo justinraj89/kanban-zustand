@@ -14,17 +14,17 @@ function Task({ title }) {
 
   return (
     <div
-      className="task rounded-md min-h-[5rem] text-gray-200 p-2 flex flex-col justify-between my-3 hover:cursor-grab"
+      className="task rounded-md min-h-[5rem] p-2 flex flex-col justify-between my-3 hover:cursor-grab"
       draggable
       onDragStart={() => setDraggedTask(task.title)}
     >
-      <div className="description">{task.title}</div>
-      <div className="flex justify-between">
-        <div className="flex items-center gap-2 text-sm" >
+      <div className="mb-2 text-green-500 border-b border-opacity-30 pb-2">{task.title}</div>
+      <div className="flex justify-between pt-2">
+        <div className="flex items-center gap-2 text-sm text-red-300 hover:text-red-400 hover:cursor-pointer" onClick={() => deleteTask(task.title)}>
           <BsTrash />
           <span>Delete</span>
         </div>
-        <div className=''>{task.state}</div>
+        <div className={`p-1 px-2 text-xs rounded-md ${task.state} text-white`}>{task.state}</div>
       </div>
     </div>
   );

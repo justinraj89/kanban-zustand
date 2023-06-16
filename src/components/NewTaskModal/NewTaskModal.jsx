@@ -18,17 +18,23 @@ function NewTaskModal({ newTaskModalOpen, setNewTaskModalOpen }) {
     // CLoses modal when you press escape key
     useEffect(() => {
       const handleKeyPress = (event) => {
-        if (event.key === 'Escape') {
+        if (event.key === 'Escape' && newTaskModalOpen) {
           setNewTaskModalOpen(false);
+        } else if (event.key === 'Enter' && newTaskModalOpen) {
+          handleAddTask();
         }
       };
+
+      if(newTaskModalOpen){
+        newTaskRef.current.focus()
+      }
   
       document.addEventListener('keydown', handleKeyPress);
   
       return () => {
         document.removeEventListener('keydown', handleKeyPress);
       };
-    }, []);
+    }, [newTaskModalOpen]);
 
   return (
     <>
