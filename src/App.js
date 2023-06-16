@@ -1,5 +1,5 @@
 import Column from "./components/Column/Column";
-import NewTaskModal from "./components/NewTaskModal";
+import NewTaskModal from "./components/NewTaskModal/NewTaskModal";
 import { useState } from "react";
 
 
@@ -8,7 +8,7 @@ function App() {
 
   return (
     <div
-      className="min-h-screen bg-cover flex justify-center items-start font-mono"
+      className="min-h-screen bg-cover flex flex-col lg:flex-row justify-center items-start font-mono"
       style={{
         backgroundImage: `url(${process.env.PUBLIC_URL}/background.jpeg)`,
       }}

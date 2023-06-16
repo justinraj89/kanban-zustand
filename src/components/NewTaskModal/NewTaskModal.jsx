@@ -1,7 +1,7 @@
-import React from "react";
+import "./NewTaskModal.css"
 import { AiOutlineClose } from "react-icons/ai"
-import { useRef } from "react";
-import { useStore } from "../store";
+import { useRef, useEffect } from "react";
+import { useStore } from "../../store";
 
 function NewTaskModal({ newTaskModalOpen, setNewTaskModalOpen }) {
     const newTaskRef = useRef();
@@ -15,14 +15,29 @@ function NewTaskModal({ newTaskModalOpen, setNewTaskModalOpen }) {
         setNewTaskModalOpen(false)
     }
 
+    // CLoses modal when you press escape key
+    useEffect(() => {
+      const handleKeyPress = (event) => {
+        if (event.key === 'Escape') {
+          setNewTaskModalOpen(false);
+        }
+      };
+  
+      document.addEventListener('keydown', handleKeyPress);
+  
+      return () => {
+        document.removeEventListener('keydown', handleKeyPress);
+      };
+    }, []);
+
   return (
     <>
       {newTaskModalOpen ? (
         <>
           <div className="justify-center mt-52 flex overflow-x-hidden fixed z-50">
-            <div className="w-auto my-6 mx-auto max-w-xl">
+            <div className="w-auto my-6 mx-auto max-w-xl animate-modal">
               {/*content*/}
-              <div className="rounded-lg flex flex-col w-full bg-slate-950 border-2 border-gray-500">
+              <div className="rounded-lg flex flex-col w-full bg-slate-950 border-[1px] border-gray-500">
                 {/*header*/}
                 <div className="flex items-center justify-between p-5 rounded-t border-b border-gray-200 text-gray-200">
                   <h3 className="text-xl font-semibold">Add New Task</h3>
@@ -59,7 +74,7 @@ function NewTaskModal({ newTaskModalOpen, setNewTaskModalOpen }) {
               </div>
             </div>
           </div>
-          <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
     </>
