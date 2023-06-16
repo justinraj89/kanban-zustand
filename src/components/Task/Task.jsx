@@ -20,7 +20,7 @@ function Task({ title }) {
     >
       <div className="mb-2 text-green-500 border-b border-opacity-30 pb-2">{task.title}</div>
       <div className="flex justify-between pt-2">
-        <div className="flex items-center gap-2 text-sm text-red-300 hover:text-red-400 hover:cursor-pointer" onClick={() => deleteTask(task.title)}>
+        <div className="flex items-center gap-2 text-sm text-red-300 hover:text-red-400 hover:cursor-pointer" onClick={() => deleteTask(task.id)}>
           <BsTrash />
           <span>Delete</span>
         </div>

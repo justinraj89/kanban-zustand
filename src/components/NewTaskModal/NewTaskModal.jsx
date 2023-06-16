@@ -1,40 +1,40 @@
-import "./NewTaskModal.css"
-import { AiOutlineClose } from "react-icons/ai"
+import "./NewTaskModal.css";
+import { AiOutlineClose } from "react-icons/ai";
 import { useRef, useEffect } from "react";
 import { useStore } from "../../store";
 
 function NewTaskModal({ newTaskModalOpen, setNewTaskModalOpen }) {
-    const newTaskRef = useRef();
-    const addTask = useStore((store) => store.addTask);
+  const newTaskRef = useRef();
+  const addTask = useStore((store) => store.addTask);
 
-    function handleAddTask() {
-        const newTask = newTaskRef.current.value;
-        if(!newTask) return;
-        addTask(newTask, "Incomplete");
-        newTaskRef.current.value = '';
-        setNewTaskModalOpen(false)
+  function handleAddTask() {
+    const newTask = newTaskRef.current.value;
+    if (!newTask) return;
+    addTask(newTask, "Incomplete");
+    newTaskRef.current.value = "";
+    setNewTaskModalOpen(false);
+  }
+
+  // Closes modal when you press escape key, adds task when press enter key
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "Escape" && newTaskModalOpen) {
+        setNewTaskModalOpen(false);
+      } else if (event.key === "Enter" && newTaskModalOpen) {
+        handleAddTask();
+      }
+    };
+
+    if (newTaskModalOpen) {
+      newTaskRef.current.focus();
     }
 
-    // CLoses modal when you press escape key
-    useEffect(() => {
-      const handleKeyPress = (event) => {
-        if (event.key === 'Escape' && newTaskModalOpen) {
-          setNewTaskModalOpen(false);
-        } else if (event.key === 'Enter' && newTaskModalOpen) {
-          handleAddTask();
-        }
-      };
+    document.addEventListener("keydown", handleKeyPress);
 
-      if(newTaskModalOpen){
-        newTaskRef.current.focus()
-      }
-  
-      document.addEventListener('keydown', handleKeyPress);
-  
-      return () => {
-        document.removeEventListener('keydown', handleKeyPress);
-      };
-    }, [newTaskModalOpen]);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [newTaskModalOpen]);
 
   return (
     <>
@@ -51,19 +51,21 @@ function NewTaskModal({ newTaskModalOpen, setNewTaskModalOpen }) {
                     className="ml-auto text-white hover:opacity-70 float-right text-2xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setNewTaskModalOpen(false)}
                   >
-                    <AiOutlineClose/>
+                    <AiOutlineClose />
                   </button>
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                 
-                    <input type="text" ref={newTaskRef} className="w-96 px-2 text-xl rounded-sm focus:outline-none" />
-
+                  <input
+                    type="text"
+                    ref={newTaskRef}
+                    className="w-96 px-2 text-xl rounded-sm focus:outline-none"
+                  />
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-around px-6 py-4  rounded-b">
                   <button
-                     className="bg-red-500 hover:bg-red-600 text-white active:bg-red-600 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-red-500 hover:bg-red-600 text-white active:bg-red-600 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setNewTaskModalOpen(false)}
                   >
