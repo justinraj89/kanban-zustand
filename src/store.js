@@ -14,12 +14,12 @@ const store = (set) => ({
       tasks: store.tasks.filter((task) => task.id !== id),
     })),
 
-  setDraggedTask: (title) => set({ draggedTask: title }),
+  setDraggedTask: (id) => set({ draggedTask: id }),
 
-  moveTask: (title, state) =>
+  moveTask: (id, state) =>
     set((store) => ({
       tasks: store.tasks.map((task) =>
-        task.title === title ? { title, state } : task
+        task.id === id ? { ...task, state } : task
       ),
     })),
 });

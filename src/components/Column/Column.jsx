@@ -33,7 +33,7 @@ function Column({ state, setNewTaskModalOpen }) {
       </div>
 
       {tasks.map((task) => (
-        <Task title={task.title} key={task.title} />
+        <Task id={task.id} key={task.id} />
       ))}
     </div>
   );
